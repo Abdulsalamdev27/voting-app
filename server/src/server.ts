@@ -1,18 +1,14 @@
-import express from "express";
+import dotenv from "dotenv";
+import { connectDatabase } from "./config/database";
 
-const app = express();
+dotenv.config();
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
+const startServer = async (): Promise<void> => {
+  await connectDatabase();
 
-app.get("/", (req, res)=>{
-    res.json({
-        message:"API RUNNING"
-    })
-}
+  console.log(`Server running on port ${PORT}`);
+};
 
-)
-
-app.listen(PORT, ()=>{
-    console.log(`server running on ${PORT}`)
-})
+startServer();
